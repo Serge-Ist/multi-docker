@@ -3,21 +3,22 @@ services:
   - docker
   
 before_install:
-  - docker build -t sergeistt/react-test -f ./client/Dockerfile.dev ./client/Dockerfile
+  - docker build -t seis/react-test -f ./client/Dockerfile.dev ./client
   
 script:
-  - docker run sergeistt/react-test npm test -- -coverage
+  - docker run seis/react-test npm test -- -coverage
   
 after_success:
-  - docker build -t sergeistt/multi-client ./client
-  - docker build -t sergeistt/multi-nginx ./nginx
-  - docker build -t sergeistt/multi-server ./server
-  - docker build -t sergeistt/multi-worker ./worker
+  - docker build -t sergeist/multi-client ./client
+  - docker build -t sergeist/multi-nginx ./nginx
+  - docker build -t sergeist/multi-server ./server
+  - docker build -t sergeist/multi-worker ./worker
 
 # Log in to the docker CLI
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
 # Push images
-  - docker push sergeistt/multi-client
-  - docker push sergeistt/multi-nginx
-  - docker push sergeistt/multi-server
-  - docker push sergeistt/multi-worker
+  - docker push sergeist/multi-client
+  - docker push sergeist/multi-nginx
+  - docker push sergeist/multi-server
+  - docker push sergeist/multi-worker
+ 
