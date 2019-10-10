@@ -1,0 +1,23 @@
+sudo: required
+services:
+  - docker
+  
+before_install:
+  - docker build -t sergeistt/react-test -f ./client/Dockerfile.dev ./client/Dockerfile
+  
+script:
+  - docker run sergeistt/react-test npm test -- -coverage
+  
+after_success:
+  - docker build -t sergeistt/multi-client ./client
+  - docker build -t sergeistt/multi-nginx ./nginx
+  - docker build -t sergeistt/multi-server ./server
+  - docker build -t sergeistt/multi-worker ./worker
+
+# Log in to the docker CLI
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+# Push images
+  - docker push sergeistt/multi-client
+  - docker push sergeistt/multi-nginx
+  - docker push sergeistt/multi-server
+  - docker push sergeistt/multi-worker
