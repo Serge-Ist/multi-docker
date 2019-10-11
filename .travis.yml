@@ -3,8 +3,8 @@
    - docker
   
  before_install:
-   #- docker build -t sergeistt/react-test -f ./client/Dockerfile.dev ./client
-   - docker build -t sergeistt/docker-react -f Dockerfile.dev .
+   - docker build -t sergeistt/react-test -f ./client/Dockerfile.dev ./client
+   #- docker build -t sergeistt/docker-react -f Dockerfile.dev .
  script:
    - docker run sergeistt/react-test npm test -- -coverage
 
