@@ -1,6 +1,6 @@
 FROM node:alpine
 WORKDIR '/app'
 COPY ./package.json ./
-Run npm i ansi-styles@3.2.1 install
+Run npm install
 COPY . .
 CMD ["npm", "run", "start"]
